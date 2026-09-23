@@ -5,7 +5,7 @@ A super simple FastAPI application that allows students to view and sign up for 
 ## Features
 
 - View all available extracurricular activities
-- Sign up for activities
+- Teachers can sign up and unregister students after logging in
 
 ## Getting Started
 
@@ -30,7 +30,10 @@ A super simple FastAPI application that allows students to view and sign up for 
 | Method | Endpoint                                                          | Description                                                         |
 | ------ | ----------------------------------------------------------------- | ------------------------------------------------------------------- |
 | GET    | `/activities`                                                     | Get all activities with their details and current participant count |
-| POST   | `/activities/{activity_name}/signup?email=student@mergington.edu` | Sign up for an activity                                             |
+| POST   | `/auth/login`                                                       | Log in as a teacher and receive a session token                      |
+| POST   | `/auth/logout`                                                      | End the current teacher session                                     |
+| POST   | `/activities/{activity_name}/signup?email=student@mergington.edu`    | Sign up for an activity (teacher token required)                     |
+| DELETE | `/activities/{activity_name}/unregister?email=student@mergington.edu` | Unregister a student (teacher token required)                       |
 
 ## Data Model
 
@@ -48,3 +51,6 @@ The application uses a simple data model with meaningful identifiers:
    - Grade level
 
 All data is stored in memory, which means data will be reset when the server restarts.
+
+Teacher credentials are stored in `teachers.json` for this exercise. The sample login is
+`teacher` / `mergington-teacher`; replace it before deploying the application.
